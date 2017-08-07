@@ -131,6 +131,9 @@ func runMandrill(api *MandrillAPI, path string, parameters map[string]interface{
 		return nil, err
 	}
 	defer resp.Body.Close()
+	if (resp.StatusCode != 200) {
+		return nil, fmt.Errorf(resp.Status)
+	}
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
